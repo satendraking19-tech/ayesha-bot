@@ -11,5 +11,4 @@ services:
       - key: GROQ_KEY
         sync: false
       - key: SATYA_USER_ID
-        sync: false
         value: "7425676908"
