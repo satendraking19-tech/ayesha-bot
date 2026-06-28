@@ -11,6 +11,7 @@ import google.generativeai as genai
 # ==================== CONFIG ====================
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 GEMINI_KEY = os.environ.get("GEMINI_KEY")
+GROQ_KEY = os.environ.get("GROQ_KEY")
 SATYA_USER_ID = os.environ.get("SATYA_USER_ID", "7425676908")
 
 if not BOT_TOKEN:
@@ -162,11 +163,9 @@ def ai_reply(user_id, user_message, image_data=None):
 
         # Gemini Call
         if image_data:
-            # With image
             image_parts = [{"mime_type": "image/jpeg", "data": image_data}]
             response = model.generate_content([full_prompt, image_parts[0]])
         else:
-            # Text only
             response = model.generate_content(full_prompt)
 
         reply = response.text
@@ -187,8 +186,6 @@ def ai_reply(user_id, user_message, image_data=None):
 
 def voice_to_text(file_path):
     try:
-        # Use requests for Groq Whisper (still free!)
-        GROQ_KEY = os.environ.get("GROQ_KEY")
         if not GROQ_KEY:
             return None
 
@@ -386,4 +383,4 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"❌ Polling crashed: {e}")
             print("🔄 Restart in 5 sec...")
-            time.sleep(5
+            time.sleep(5)
